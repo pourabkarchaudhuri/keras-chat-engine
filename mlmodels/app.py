@@ -117,7 +117,7 @@ def classify():
         context = request.json['context']
 
     else:
-        # print("Context not present!")
+        print("Context not present!")
         context = None
 
     # entities = entity_extraction.named_entity_extraction(sentence)
@@ -169,7 +169,7 @@ def classify():
                     
                     # return_list.append({"query": sentence, "intent": classes[r[0]], "response": random.choice(x_tend['responses']), "context": output_context, "probability": str(round(r[1],2)), "sentiment":sentiment})
         # return tuple of intent and probability
-    
+    print(random.choice(x_tend['responses']))
     return jsonify({
                 "result" : {
                     "fulfillment":{
