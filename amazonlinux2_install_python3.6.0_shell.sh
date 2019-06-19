@@ -63,3 +63,4 @@ source py3env/bin/activate
 
 python --version
 # Python 3.6.0
+sudo chmod -R  777 /usr/local/
