@@ -20,6 +20,10 @@ sudo yum -y install tk-devel
 
 sudo yum -y install openssl-devel
 
+yum install -y readline-devel
+yum install -y tcl-devel   
+yum install -y sqlite-devel 
+
 
 # Installing openssl-devel alone seems to result in SSL errors in pip (see https://medium.com/@moreless/pip-complains-there-is-no-ssl-support-in-python-edbdce548852)
 # Need to install OpenSSL also to avoid these errors
@@ -27,7 +31,7 @@ wget https://github.com/openssl/openssl/archive/OpenSSL_1_0_2l.tar.gz
 tar -zxvf OpenSSL_1_0_2l.tar.gz 
 cd openssl-OpenSSL_1_0_2l/
 
-./config shared
+./config --enable-loadable-sqlite-extensions --enable-optimizations --prefix=/usr/local/python3
 make
 sudo make install
 export LD_LIBRARY_PATH=/usr/local/ssl/lib/
@@ -38,17 +42,17 @@ rm -rf openssl-OpenSSL_1_0_2l/
 
 
 # Install Python 3.6
-wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tar.xz
-tar xJf Python-3.6.0.tar.xz
-cd Python-3.6.0
+wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
+tar xJf Python-3.6.1.tar.xz
+cd Python-3.6.1
 
 ./configure
 make
 sudo make install
 
 cd ..
-rm Python-3.6.0.tar.xz
-sudo rm -rf Python-3.6.0
+rm Python-3.6.1.tar.xz
+sudo rm -rf Python-3.6.1
 
 
 # Create virtualenv running Python 3.6
