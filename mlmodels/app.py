@@ -74,7 +74,7 @@ def bow(sentence, words, show_details=True):
 global graph
 graph = tf.get_default_graph()
 
-with open(f'keras-assistant-model.pkl', 'rb') as f:
+with open('keras-assistant-model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 def classify_local(sentence):
