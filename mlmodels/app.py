@@ -106,6 +106,7 @@ def classify():
     global stress
     ERROR_THRESHOLD = 0.75
     context = None
+    print(request.json)
     sentence = request.json['sentence']
     # print(sentence)
     sentiment = sentiment_analysis.sentiment_analyzer(sentence)
