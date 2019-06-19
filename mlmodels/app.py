@@ -101,13 +101,14 @@ classify_local('Hello World!')
 app = Flask(__name__)
 CORS(app)
 
+
 @app.route("/ml/api/v1.0/assistant", methods=['POST'])
 def classify():
     global stress
     ERROR_THRESHOLD = 0.75
     context = None
-    print(request.json)
-    sentence = request.json['sentence']
+
+    sentence = request.json['query']
     # print(sentence)
     sentiment = sentiment_analysis.sentiment_analyzer(sentence)
     
