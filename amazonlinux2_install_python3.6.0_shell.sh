@@ -4,8 +4,8 @@
 # This is required because Amazon Linux does not come with Python 3.6 pre-installed 
 # and several packages available in Amazon Linux are not available in the Lambda Python 3.6 runtime
 
-# The script has been tested successfully on a t2.micro EC2 instance (Root device type: ebs; Virtualization type: hvm)
-# running Amazon Linux AMI 2017.03.0 (HVM), SSD Volume Type - ami-c58c1dd3
+# The script has been tested successfully on a EC2 instance
+# running 4.9.75-1.56.amzn2.x86_64 
 # and was developed with the help of AWS Support
 
 # The steps in this script are:
@@ -16,6 +16,8 @@
 # install pre-requisites
 sudo yum -y groupinstall development
 sudo yum -y install zlib-devel
+sudo yum -y install tk-devel
+
 sudo yum -y install openssl-devel
 
 
@@ -50,9 +52,10 @@ sudo rm -rf Python-3.6.0
 
 
 # Create virtualenv running Python 3.6
+sudo yum install -y python2-pip
 sudo pip install --upgrade virtualenv
-virtualenv -p python3 MYVENV
-source MYVENV/bin/activate
+virtualenv -p python3 py3env
+source py3env/bin/activate
 
 python --version
 # Python 3.6.0
