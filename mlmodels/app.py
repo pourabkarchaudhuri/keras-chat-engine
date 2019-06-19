@@ -1,5 +1,6 @@
 # things we need for NLP
 import nltk
+nltk.download('punkt')
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
 
@@ -133,7 +134,19 @@ def classify():
     output_context = None
     # print("Results Length : ", len(results))
     if len(results) == 0:
-        return_list.append({"query": sentence, "intent": "fallback", "response": random.choice(fallback_dict), "context": None, "probability": "0.00", "sentiment":sentiment})
+        return jsonify({
+                "result" : {
+                    "fulfillment":{
+                        "messages": [{
+                            "type": 0,
+                            "platform": "facebook",
+                            "speech": random.choice(fallback_dict)
+                            }
+                        ]
+                    }        
+                }
+            })
+        # return_list.append({"query": sentence, "intent": "fallback", "response": random.choice(fallback_dict), "context": None, "probability": "0.00", "sentiment":sentiment})
     else:
         # print("Inference Exists")
         for r in results:
@@ -152,10 +165,22 @@ def classify():
                     # elif len(entities) == 0:
                     #     entities = None
                     
-                    return_list.append({"query": sentence, "intent": classes[r[0]], "response": random.choice(x_tend['responses']), "context": output_context, "probability": str(round(r[1],2)), "sentiment":sentiment})
+                    # return_list.append({"query": sentence, "intent": classes[r[0]], "response": random.choice(x_tend['responses']), "context": output_context, "probability": str(round(r[1],2)), "sentiment":sentiment})
         # return tuple of intent and probability
-        
-    response = jsonify({"result":return_list, "error":None})
+    
+    return jsonify({
+                "result" : {
+                    "fulfillment":{
+                        "messages": [{
+                            "type": 0,
+                            "platform": "facebook",
+                            "speech": random.choice(x_tend['responses'])
+                            }
+                        ]
+                    }        
+                }
+            })
+
     return response
 
 # running REST interface, port=5000 for direct test, port=5001 for deployment from PM2
