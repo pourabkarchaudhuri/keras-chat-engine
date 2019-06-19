@@ -12,13 +12,13 @@ import numpy as np
 import json
 
 import random
-import entity_extraction
+# import entity_extraction
 import sentiment_analysis
 import stress_analysis
 
 import os
 
-stress = 78
+# stress = 78
 # print("INITIALIZING STRESS LEVEL : {}".format(stress))
 os.environ["CUDA_VISIBLE_DEVICES"]="-1"
 # Toggle comment above to run on CPU
@@ -117,7 +117,7 @@ def classify():
         # print("Context not present!")
         context = None
 
-    entities = entity_extraction.named_entity_extraction(sentence)
+    # entities = entity_extraction.named_entity_extraction(sentence)
     # generate probabilities from the model
     input_data = pd.DataFrame([bow(sentence, words)], dtype=float, index=['input'])
     results = model.predict([input_data])[0]
@@ -133,7 +133,7 @@ def classify():
     output_context = None
     # print("Results Length : ", len(results))
     if len(results) == 0:
-        return_list.append({"query": sentence, "intent": "fallback", "response": random.choice(fallback_dict), "context": None, "probability": "0.00", "entities": None, "sentiment":sentiment})
+        return_list.append({"query": sentence, "intent": "fallback", "response": random.choice(fallback_dict), "context": None, "probability": "0.00", "sentiment":sentiment})
     else:
         # print("Inference Exists")
         for r in results:
@@ -147,12 +147,12 @@ def classify():
                     # print("Entities Length : ", len(entities))
                     if x_tend['context'] == "":
                         output_context = None
-                    if entities is None:
-                        entities = None
-                    elif len(entities) == 0:
-                        entities = None
+                    # if entities is None:
+                    #     entities = None
+                    # elif len(entities) == 0:
+                    #     entities = None
                     
-                    return_list.append({"query": sentence, "intent": classes[r[0]], "response": random.choice(x_tend['responses']), "context": output_context, "probability": str(round(r[1],2)), "entities": entities, "sentiment":sentiment})
+                    return_list.append({"query": sentence, "intent": classes[r[0]], "response": random.choice(x_tend['responses']), "context": output_context, "probability": str(round(r[1],2)), "sentiment":sentiment})
         # return tuple of intent and probability
         
     response = jsonify({"result":return_list, "error":None})
