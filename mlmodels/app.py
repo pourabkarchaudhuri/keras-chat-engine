@@ -166,22 +166,22 @@ def classify():
                     #     entities = None
                     # elif len(entities) == 0:
                     #     entities = None
-                    
+                    # print(random.choice(x_tend['responses']))
+                    return jsonify({
+                                "result" : {
+                                    "fulfillment":{
+                                        "messages": [{
+                                            "type": 0,
+                                            "platform": "facebook",
+                                            "speech": random.choice(x_tend['responses'])
+                                            }
+                                        ]
+                                    }        
+                                }
+                            })
                     # return_list.append({"query": sentence, "intent": classes[r[0]], "response": random.choice(x_tend['responses']), "context": output_context, "probability": str(round(r[1],2)), "sentiment":sentiment})
         # return tuple of intent and probability
-    print(random.choice(x_tend['responses']))
-    return jsonify({
-                "result" : {
-                    "fulfillment":{
-                        "messages": [{
-                            "type": 0,
-                            "platform": "facebook",
-                            "speech": random.choice(x_tend['responses'])
-                            }
-                        ]
-                    }        
-                }
-            })
+    
 
 
     # return response
